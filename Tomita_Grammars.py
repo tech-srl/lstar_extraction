@@ -2,11 +2,7 @@ def tomita_1(word):
     return not "0" in word
 
 def tomita_2(word):
-    for n in range(len(word)+1):
-        if word == "10"*n:
-            return True
-    return False
-
+    return word=="10"*(int(len(word)/2))
 
 import re
 _not_tomita_3 = re.compile("((0|1)*0)*1(11)*(0(0|1)*1)*0(00)*(1(0|1)*)*$") 
