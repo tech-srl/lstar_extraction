@@ -23,11 +23,11 @@ For Graphviz you may first need to download and install the package yourself [Gr
 DyNet is most easily installed by `pip install dynet` from the command line (for the basic CPU version - for the GPU version, check their [site](http://dynet.readthedocs.io/en/latest/python.html)). 
 
 ### Extracting from Existing Networks
-You can also apply the code directly to your own networks without most of these packages. The main extraction function is in `Extraction.py` and called `extract`. You can run it on any network that implements the API described in our `Rabbit_from_a_hat` notebook, which is viewable in-browser in git even if you don't have Jupyter, and reiterated here for completeness.
+You can also apply the code directly to your own networks without most of these packages. The main extraction function is in `Extraction.py` and called `extract`. You can run it on any network that implements the API described in our `dfa_from_rnn` notebook, which is viewable in-browser in git even if you don't have Jupyter, and reiterated here for completeness.
 ##### Network Extraction API
->1. `classify_word(word)`       gives a True or False classification for a word over the input alphabet
->2. `get_first_RState()`        gives a continuous vector representation of all of the network's initial hidden values (an RState)
->3. `get_next_RState(state,char)`    given an RState, returns the next RState the network goes to on input character char
+>1. `classify_word(word)`       returns a True or False classification for a word over the input alphabet
+>2. `get_first_RState()`        returns a continuous vector representation of the network's initial state (an RState)
+>3. `get_next_RState(state,char)`    given an RState, returns the next RState the network goes to on input character `char`
 
 ##### Partial Install
 To run only the extraction code you will only need the NumPy, SciPy, Scikit-Learn, and Graphviz packages. If you want, you can also skip the Graphviz package, at the cost of the ability to visualise your DFAs. Remove the graphviz import from `DFA.py` and set the body of the `draw_nicely` function of the `DFA` class to `pass`. You only need the `DFA`, `Extraction`, `Lstar`, `Helper_Functions`, `Observation_Table`, `Quantisations`, `Teacher`, and `WhiteboxRNNCounterexampleGenerator` modules for extraction.
