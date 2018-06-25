@@ -18,7 +18,7 @@ def tomita_5(word):
     return (word.count("0")%2 == 0) and (word.count("1")%2 == 0)
 
 def tomita_6(word):
-    return ((word.count("0")-word.count("1"))%5) == 0
+    return ((word.count("0")-word.count("1"))%3) == 0
 
 def tomita_7(word):
     return word.count("10") <= 1
