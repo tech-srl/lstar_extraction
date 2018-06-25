@@ -1,15 +1,18 @@
 from Helper_Functions import n_words_of_length
 
-def make_train_set_for_target(target,alphabet,lengths=None):
+def make_train_set_for_target(target,alphabet,lengths=None,max_train_samples_per_length=300,search_size_per_length=1000,provided_examples=None):
     train_set = {}
+    if None == provided_examples:
+        provided_examples = []
     if None == lengths:
         lengths = list(range(15))+[15,20,25,30] 
     for l in lengths:
-        more = n_words_of_length(1000,l,alphabet)
-        pos = [w for w in more if target(w)]
-        neg = [w for w in more if not target(w)]
-        pos = pos[:150]
-        neg = neg[:150]
+        samples = [w for w in provided_examples if len(w)==l]
+        samples += n_words_of_length(search_size_per_length,l,alphabet)
+        pos = [w for w in samples if target(w)]
+        neg = [w for w in samples if not target(w)]
+        pos = pos[:int(max_train_samples_per_length/2)]
+        neg = neg[:int(max_train_samples_per_length/2)]
         minority = min(len(pos),len(neg))
         pos = pos[:minority+20]
         neg = neg[:minority+20]
