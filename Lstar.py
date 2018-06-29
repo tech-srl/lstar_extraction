@@ -1,7 +1,6 @@
-from ObservationTable import *
+from ObservationTable import ObservationTable
 import DFA
-from Teacher import *
-from WhiteboxRNNCounterexampleGenerator import *
+from time import clock
 
 def run_lstar(teacher,time_limit):
     table = ObservationTable(teacher.alphabet,teacher)

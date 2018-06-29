@@ -1,7 +1,7 @@
 import numpy as np
-from WhiteboxRNNCounterexampleGenerator import *
 from Helper_Functions import mean
 from sklearn import svm
+from copy import deepcopy
 
 class SVMDecisionTreeNode:
     def __init__(self,id):
