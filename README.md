@@ -1,6 +1,10 @@
 # Lstar Extraction
 Welcome to our public repository, implementing the extraction algorithm from our ICML 2018 paper, [Extracting Automata from Recurrent Neural Networks Using Queries and Counterexamples](https://arxiv.org/abs/1711.09576). 
 
+### Google Colaboratory
+To use the main notebook here without installing anything, you can go straight to google colaboratory: https://drive.google.com/file/d/1tkJK1rJVEg9e-QcWOxErDb3cQq9UR-yR/view?usp=sharing
+
+### This Repository
 Open the `dfa_from_rnn` notebook for a full demonstration and run through of how to use it yourself (we have provided all of the Tomita grammars, but you can also define, train, and extract your own languages!). For the impatient, the `dfa_from_rnn_no_documentation` notebook is exactly like `dfa_from_rnn`, only without all the explanation blocks. And if you want to train and keep track of several RNNs, you can use `dfa_from_rnn_notebook_for_several_rnns`, which is like `dfa_from_rnn_no_documentation` only it keeps all of your RNNs in neat little wrappers with their target languages and then keeps all of those in a list.
 
 ### Package Requirements
@@ -18,9 +22,9 @@ If you are on a mac using Homebrew, then NumPy, SciPy, Scikit-Learn, Matplotlib,
 
 If you don't have Homebrew, or wherever `brew install` doesn't work, try `pip install` instead. 
 
-For Graphviz you may first need to download and install the package yourself [Graphviz](https://www.graphviz.org/download/), after which you can run `pip install graphviz`. If you're lucky, `brew install graphviz` might take care of all of this for you by itself.
+For Graphviz you may first need to download and install the package yourself [Graphviz](https://www.graphviz.org/download/), after which you can run `pip install graphviz`. If you're lucky, `brew install graphviz` might take care of all of this for you by itself. On colab, we got Graphviz using `pip install graphviz` and then `apt-get install graphviz`.
 
-DyNet is most easily installed by `pip install dynet` from the command line (for the basic CPU version - for the GPU version, check their [site](http://dynet.readthedocs.io/en/latest/python.html)). 
+DyNet is installed by `pip install dynet` from the command line (for the basic CPU version. For the GPU version, check their [site](http://dynet.readthedocs.io/en/latest/python.html)). 
 
 ### Extracting from Existing Networks
 You can also apply the code directly to your own networks without most of these packages. The main extraction function is in `Extraction.py` and called `extract`. You can run it on any network that implements the API described in our `dfa_from_rnn` notebook, which is viewable in-browser in git even if you don't have Jupyter, and reiterated here for completeness.
