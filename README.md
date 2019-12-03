@@ -30,8 +30,8 @@ DyNet is installed by `pip install dynet` from the command line (for the basic C
 You can also apply the code directly to your own networks without most of these packages. The main extraction function is in `Extraction.py` and called `extract`. You can run it on any network that implements the API described in our `dfa_from_rnn` notebook, which is viewable in-browser in git even if you don't have Jupyter, and reiterated here for completeness.
 ##### Network Extraction API
 >1. `classify_word(word)`       returns a True or False classification for a word over the input alphabet
->2. `get_first_RState()`        returns a continuous vector representation of the network's initial state (an RState)
->3. `get_next_RState(state,char)`    given an RState, returns the next RState the network goes to on input character `char`
+>2. `get_first_RState()`        returns a tuple (v,c) where v is a continuous vector representation of the network's initial state (an RState), and c is a boolean signifying whether it is an accepting state
+>3. `get_next_RState(state,char)`    given an RState, returns the next RState the network goes to on input character `char`, in the same format as `get_first_RState` (i.e., a tuple (v,c) of vector + boolean)
 
 ##### Partial Install
 To run only the extraction code you will only need the NumPy, SciPy, Scikit-Learn, and Graphviz packages. If you want, you can also skip the Graphviz package, at the cost of the ability to visualise your DFAs. Remove the graphviz import from `DFA.py` and set the body of the `draw_nicely` function of the `DFA` class to `pass`. You only need the `DFA`, `Extraction`, `Lstar`, `Helper_Functions`, `Observation_Table`, `Quantisations`, `Teacher`, and `WhiteboxRNNCounterexampleGenerator` modules for extraction.
