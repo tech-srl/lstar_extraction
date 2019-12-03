@@ -22,7 +22,7 @@ class WhiteboxRNNCounterexampleGenerator:
 
     def _counterexample_from_classification_conflict(self,state_info):
         res = self._get_counterexample_from(state_info.paths)
-        if None == res:
+        if None is res:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             print("classification conflict didn't cause counterexample:")
             print("check your partitioning is consistent and transition function ")
@@ -42,13 +42,13 @@ class WhiteboxRNNCounterexampleGenerator:
         split = SplitInfo()
 
         old_info = self.cluster_information[new_cluster] if new_cluster in self.cluster_information else None
-        full_info = old_info + new_info if not old_info == None else new_info
+        full_info = old_info + new_info if not None is old_info else new_info
 
         if not new_info.accepting == (new_info.dfa_state in self.proposed_dfa.F):
             counterexample = self._counterexample_from_classification_conflict(new_info)
         elif not new_info.dfa_state == full_info.dfa_state:
             counterexample = self._counterexample_from_cluster_conflict(old_info,new_info)
-            if counterexample == None:
+            if None is counterexample:
                 split = SplitInfo(agreeing_RStates=old_info.RStates, 
                                   conflicted_RState=new_info.RStates[0]) # the one seen now, in new info
         else: #no conflicts, store state and continue processing it later
@@ -76,7 +76,7 @@ class WhiteboxRNNCounterexampleGenerator:
         self.new_RStates_backup = new_info #might want to unpop if we refine the partitioning and want to restart from here
         new_cluster = self.partitioning.get_partition(new_info.RStates[0])
         counterexample, split = self._process_new_state_except_children(new_cluster, new_info)
-        if (counterexample == None) and (not split.has_info): #i.e. no conflicts
+        if (None is counterexample) and (not split.has_info): #i.e. no conflicts
             self._add_children_states(new_cluster)
         return counterexample, split
 
@@ -93,7 +93,7 @@ class WhiteboxRNNCounterexampleGenerator:
         return None
 
     def _out_of_time(self):
-        if not None == self.time_limit:
+        if not None is self.time_limit:
             if (clock() - self.start_time) > self.time_limit:
                 return True
         return False
@@ -108,7 +108,7 @@ class WhiteboxRNNCounterexampleGenerator:
         print("guided starting equivalence query for DFA of size " + str(len(dfa.Q)))
         dfa.draw_nicely(maximum=30)
         counterexample = self._cex_from_starting_dict(dfa)
-        if not None == counterexample:
+        if not None is counterexample:
             return counterexample,counterexample_message(counterexample,self.whiteboxrnn)
 
         self.proposed_dfa = dfa
@@ -120,7 +120,7 @@ class WhiteboxRNNCounterexampleGenerator:
                 if len(self.new_RStates) == 0: # seen everything there is to see here
                     return None, "lstar successful: unrolling seems equivalent to proposed automaton"
                 counterexample, split = self._process_top_pair() # always returns a cex, or a split, or neither - but never both
-                if not None == counterexample:
+                if not None is counterexample:
                     return counterexample,counterexample_message(counterexample,self.whiteboxrnn)
                 elif split.has_info:
                     cluster_being_split = self.partitioning.get_partition(split.agreeing_RStates[0])
@@ -143,7 +143,7 @@ class SplitInfo: #todo: move this to quantisations and just give the whole thing
     def __init__(self,agreeing_RStates=None,conflicted_RState=None):
         self.agreeing_RStates = agreeing_RStates
         self.conflicted_RState = conflicted_RState
-        self.has_info = not (conflicted_RState == None)
+        self.has_info = not (None is conflicted_RState)
 
 class UnrollingInfo:
     def __init__(self,dfa_state,path,RState,accepting):

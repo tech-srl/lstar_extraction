@@ -9,7 +9,7 @@ _not_tomita_3 = re.compile("((0|1)*0)*1(11)*(0(0|1)*1)*0(00)*(1(0|1)*)*$")
 # *not* tomita 3: words containing an odd series of consecutive ones and then later an odd series of consecutive zeros
 # tomita 3: opposite of that
 def tomita_3(w): 
-    return None == _not_tomita_3.match(w) #complement of _not_tomita_3
+    return None is _not_tomita_3.match(w) #complement of _not_tomita_3
 
 def tomita_4(word):
     return not "000" in word

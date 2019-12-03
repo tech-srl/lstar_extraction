@@ -19,7 +19,7 @@ def run_lstar(teacher,time_limit):
         dfa = DFA.DFA(obs_table=table)
         print("obs table refinement took " + str(int(1000*(clock()-start))/1000.0) )
         counterexample = teacher.equivalence_query(dfa)
-        if counterexample == None:
+        if None is counterexample:
             break
         start = clock()
         table.add_counterexample(counterexample,teacher.classify_word(counterexample))

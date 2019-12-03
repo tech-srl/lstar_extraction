@@ -25,8 +25,8 @@ class ObservationTable:
         self.interface.update_words(self._Trange(new_e_list,new_s))
 
     def _Trange(self,new_e_list,new_s):         # T: (S cup (S dot A)) dot E -> {True,False} #doesn't modify
-        E = self.E if new_e_list == None else new_e_list
-        starts = self.S | self._SdotA() if new_s == None else [new_s+a for a in (list(self.A)+[""])]
+        E = self.E if None is new_e_list else new_e_list
+        starts = self.S | self._SdotA() if None is new_s else [new_s+a for a in (list(self.A)+[""])]
         return set([s+e for s in starts for e in E])
 
     def _SdotA(self): #doesn't modify
@@ -41,7 +41,7 @@ class ObservationTable:
                         self.equal_cache.add((s1+a,s2))
 
     def _update_row_equivalence_cache(self,new_e=None,new_s=None): #just fixes cache. in case of new_e - only makes it smaller
-        if not None == new_e:
+        if not None is new_e:
             remove = [(s1,s2) for s1,s2 in self.equal_cache if not self.T[s1+new_e]==self.T[s2+new_e]]
             self.equal_cache = self.equal_cache.difference(remove)
         else: #new_s != None, or a bug!
@@ -54,7 +54,7 @@ class ObservationTable:
 
     def _rows_are_same(self, s, t):  #doesn't modify
         # row(s) = f:E->{0,1} where f(e)=T(se)
-        return next((e for e in self.E if not self.T[s+e]==self.T[t+e]),None) == None
+        return None is next((e for e in self.E if not self.T[s+e]==self.T[t+e]),None) 
 
     def all_live_rows(self):
         return [s for s in self.S if s == self.minimum_matching_row(s)]
@@ -65,7 +65,7 @@ class ObservationTable:
         return next(s for s in self.S if (t,s) in self.equal_cache)
 
     def _assert_not_timed_out(self):
-        if not None == self.time_limit:
+        if not None is self.time_limit:
             if clock()-self.start > self.time_limit: 
                 print("obs table timed out")
                 raise TableTimedOut() # whatever, can't be bothered rn
@@ -75,7 +75,7 @@ class ObservationTable:
         maybe_inconsistent = [(s1,s2,a) for s1,s2 in self.equal_cache if s1 in self.S for a in self.A
                               if not (s1+a,s2+a) in self.equal_cache]
         troublemakers = [a+e for s1,s2,a in maybe_inconsistent for e in
-                         [next((e for e in self.E if not self.T[s1+a+e]==self.T[s2+a+e]),None)] if not e==None]
+                         [next((e for e in self.E if not self.T[s1+a+e]==self.T[s2+a+e]),None)] if not None is e]
         if len(troublemakers) == 0:
             return False
         self.E.add(troublemakers[0])
@@ -87,7 +87,7 @@ class ObservationTable:
     def find_and_close_row(self): #modifies - and whenever it does, calls _fill_T
         #returns whether table was unclosed
         s1a = next((s1+a for s1 in self.S for a in self.A if not [s for s in self.S if (s1+a,s) in self.equal_cache]),None)
-        if s1a == None:
+        if None is s1a:
             return False
         self.S.add(s1a)
         self._fill_T(new_s=s1a)

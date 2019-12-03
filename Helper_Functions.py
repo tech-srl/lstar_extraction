@@ -23,7 +23,7 @@ def all_words_of_length(length,alphabet):
 
 
 def compare(network,classifier,length,num_examples=1000,provided_samples=None):
-    if not None == provided_samples:
+    if not None is provided_samples:
         words = provided_samples
     else:
         words = n_words_of_length(num_examples,length,network.alphabet)

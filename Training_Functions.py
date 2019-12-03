@@ -2,9 +2,9 @@ from Helper_Functions import n_words_of_length
 
 def make_train_set_for_target(target,alphabet,lengths=None,max_train_samples_per_length=300,search_size_per_length=1000,provided_examples=None):
     train_set = {}
-    if None == provided_examples:
+    if None is provided_examples:
         provided_examples = []
-    if None == lengths:
+    if None is lengths:
         lengths = list(range(15))+[15,20,25,30] 
     for l in lengths:
         samples = [w for w in provided_examples if len(w)==l]

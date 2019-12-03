@@ -107,11 +107,11 @@ class RNNClassifier:
             return
         start = clock()
         trainer = trainer_class(self.pc)
-        if not None == learning_rate:
+        if not None is learning_rate:
             trainer.learning_rate = learning_rate
         loss_values = []
 
-        if None == batch_size:
+        if None is batch_size:
             batch_size = len(word_dict) # leave None to define one huge batch
 
         words = list(word_dict.keys())

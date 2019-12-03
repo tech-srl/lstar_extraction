@@ -4,7 +4,7 @@ from time import clock
 
 class Teacher:
     def __init__(self, network, num_dims_initial_split=10,starting_examples=None):
-        if None == starting_examples:
+        if None is starting_examples:
             starting_examples = []
         self.recorded_words = {} # observation table uses this as its T (according to angluin paper terminology)
         self.discretiser = SVMDecisionTreeQuantisation(num_dims_initial_split)
@@ -30,7 +30,7 @@ class Teacher:
         counterexample_time = clock() - start
         print(message)
         print("equivalence checking took: " + str(counterexample_time))
-        if not counterexample == None:
+        if not None is counterexample:
             self.counterexamples_with_times.append((counterexample,counterexample_time))
             return counterexample
         return None

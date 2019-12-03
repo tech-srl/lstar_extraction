@@ -72,7 +72,7 @@ class LSTMNetwork:
     def __init__(self,num_layers=None,input_dim=None,hidden_dim=None,pc=None,output_dim=None):
         if None in [num_layers,input_dim,hidden_dim,pc] or (num_layers <= 0):
             raise MissingInput()
-        if None == output_dim:
+        if None is output_dim:
             output_dim = hidden_dim
             
         self.num_layers = num_layers
